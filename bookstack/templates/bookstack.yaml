@@ -54,8 +54,8 @@ spec:
   template:
     metadata:
       labels:
-      app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/name: bookstack
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/name: bookstack
     spec:
       containers:
         - name: {{ .Release.Name }}-bookstack

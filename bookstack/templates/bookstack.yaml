@@ -118,4 +118,4 @@ spec:
   tls:
     - hosts:
         - {{ .Values.app_url }}
-      secretname: {{ .Release.Name }}-bookstack-ssl
+      secretName: {{ .Release.Name }}-bookstack-ssl

@@ -119,7 +119,8 @@ metadata:
   labels:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: bookstack
-  annotations: {{ .Values.ingress.annotations }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
 spec:
   rules:
     - host: {{ .Values.app_url }}

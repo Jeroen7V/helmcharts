@@ -1,0 +1,29 @@
+puid: "1000"
+pgid: "1000"
+app_url: ""
+
+app:
+  image:
+    name: "linuxserver/bookstack"
+    tag: "22.03.1"
+  storage:
+    size: "5Gi"
+
+db:
+  image:
+    name: "mariadb"
+    tag: 10
+  host: ""
+  name: "bookstack"
+  user: "bookstack"
+  pass: "changeit!"
+  rootpass: "changeme!"
+  size: "5Gi"
+
+global:
+  storageclass: ""
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: public
+    cert-manager.io/cluster-issuer: letsencrypt-prd

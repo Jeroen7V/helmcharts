@@ -9,10 +9,12 @@ metadata:
 data:
   PUID: {{ .Values.puid | quote }}
   PGID: {{ .Values.pgid | quote }}
-  {{- if .Values.app_url }}
   APP_URL: {{ .Values.app_url | quote }}
-  {{- end }}
+  {{- if not .Values.db.host }}
+  DB_HOST: "{{ .Release.Name }}-mariadb"
+  {{- else }}
   DB_HOST: {{ .Values.db.host | quote }}
+  {{- end }}
   DB_USER: {{ .Values.db.user | quote }}
   DB_PASS: {{ .Values.db.pass | quote }}
   DB_DATABASE: {{ .Values.db.name | quote }}

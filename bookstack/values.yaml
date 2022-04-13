@@ -1,29 +1,30 @@
-puid: "1000"
-pgid: "1000"
-app_url: ""
+global:
+  storageclass: ""
+  app_url: ""
 
-app:
+bookstack:
   image:
     name: "linuxserver/bookstack"
     tag: "22.03.1"
   storage:
     size: "5Gi"
+  puid: "1000"
+  pgid: "1000"
 
-db:
-  image:
-    name: "mariadb"
-    tag: 10
-  host: ""
+mariadb:
+  host: "" # Leave empty to make it spin up its own database.
   name: "bookstack"
   user: "bookstack"
   pass: "changeit!"
+  image:
+    name: "mariadb"
+    tag: 10
   rootpass: "changeme!"
-  size: "5Gi"
-
-global:
-  storageclass: ""
+  storage:
+    size: "5Gi"
 
 ingress:
+  tls: false
   annotations:
-    kubernetes.io/ingress.class: public
-    cert-manager.io/cluster-issuer: letsencrypt-prd
+    kubernetes.io/ingress.class: ""
+    cert-manager.io/cluster-issuer: ""

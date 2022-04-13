@@ -1,3 +1,4 @@
+{{- if not .Values.mariadb.host }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -5,13 +6,14 @@ metadata:
   name: {{ .Release.Name }}-mariadb-env
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: database
     app.kubernetes.io/name: mariadb
 data:
-  MYSQL_ROOT_PASSWORD: {{ .Values.db.rootpass | quote }}
-  MYSQL_DATABASE: {{ .Values.db.name | quote }}
-  MYSQL_USER: {{ .Values.db.user | quote }}
-  MYSQL_PASSWORD: {{ .Values.db.pass | quote }}
+  MYSQL_ROOT_PASSWORD: {{ .Values.mariadb.rootpass | quote }}
+  MYSQL_DATABASE: {{ .Values.mariadb.name | quote }}
+  MYSQL_USER: {{ .Values.mariadb.user | quote }}
+  MYSQL_PASSWORD: {{ .Values.mariadb.pass | quote }}
 
 ---        
 apiVersion: apps/v1
@@ -20,23 +22,26 @@ metadata:
   name: {{ .Release.Name }}-mariadb
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: database
     app.kubernetes.io/name: mariadb
 spec:
   serviceName: {{ .Release.Name }}-mariadb
   selector:
     matchLabels:
-      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/part-of: {{ .Release.Name }}
+      app.kubernetes.io/component: database
       app.kubernetes.io/name: mariadb
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/part-of: {{ .Release.Name }}
+        app.kubernetes.io/component: database
         app.kubernetes.io/name: mariadb
     spec:
       containers:
       - name: {{ .Release.Name }}-mariadb
-        image: "{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}"
+        image: "{{ .Values.mariadb.image.name }}:{{ .Values.mariadb.image.tag }}"
         ports:
           - containerPort: 3306
             name: mysql
@@ -55,7 +60,7 @@ spec:
       storageClassName: {{ .Values.global.storageclass | quote }}
       resources:
         requests:
-          storage: {{ .Values.db.size | quote }}
+          storage: {{ .Values.mariadb.storage.size | quote }}
 
 ---
 apiVersion: v1
@@ -64,7 +69,8 @@ metadata:
   name: {{ .Release.Name }}-mariadb
   namespace: {{ .Release.Namespace }}
   labels:
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: database
     app.kubernetes.io/name: mariadb
 spec:
   ports:
@@ -76,3 +82,4 @@ spec:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/name: mariadb
   type: ClusterIP
+{{- end }}

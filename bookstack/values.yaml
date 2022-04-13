@@ -25,4 +25,6 @@ mariadb:
 
 ingress:
   tls: false
-  annotations: {'cert-manager.io/cluster-issuer': '', 'cert-manager.io/cluster-issuer': ''}
+  annotations:
+    kubernetes.io/ingress.class: ""
+    cert-manager.io/cluster-issuer: ""

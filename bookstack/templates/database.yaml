@@ -37,6 +37,10 @@ spec:
       containers:
       - name: {{ .Release.Name }}-mariadb
         image: "{{ .Values.db.image.name }}:{{ .Values.db.image.tag }}"
+        ports:
+          - containerPort: 3306
+            name: mysql
+            protocol: TCP
         volumeMounts:
         - name: {{ .Release.Name }}-mariadb
           mountPath: /var/lib/mysql
@@ -52,3 +56,23 @@ spec:
       resources:
         requests:
           storage: {{ .Values.db.size | quote }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-mariadb
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: mariadb
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+      protocol: TCP
+      targetPort: mysql
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: mariadb
+  type: ClusterIP

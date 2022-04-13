@@ -94,7 +94,8 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: application
     app.kubernetes.io/name: bookstack
   ports:
     - name: web

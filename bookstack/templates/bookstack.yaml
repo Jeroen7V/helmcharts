@@ -115,7 +115,7 @@ metadata:
     app.kubernetes.io/name: bookstack
   annotations:
 {{- with .Values.ingress.annotations }}
-{{- tpl (toYaml .) . | nindent 4 }}
+{{ tpl (toYaml .) . | indent 4 }}
 {{- end }}
 spec:
   rules:

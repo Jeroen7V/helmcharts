@@ -67,6 +67,9 @@ spec:
           volumeMounts:
             - name: {{ .Release.Name }}-bookstack
               mountPath: /config
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-bookstack-env
       volumes:
         - name: {{ .Release.Name }}-bookstack
           persistentVolumeClaim:

@@ -113,7 +113,7 @@ metadata:
     app.kubernetes.io/part-of: {{ .Release.Name }}
     app.kubernetes.io/component: application
     app.kubernetes.io/name: bookstack
-  annotations: {{ toYaml .Values.ingress.annotations | nindent 4 }}
+  annotations: {{-- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
   rules:
     - host: {{ .Values.global.app_url }}

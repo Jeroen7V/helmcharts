@@ -114,7 +114,9 @@ metadata:
     app.kubernetes.io/component: application
     app.kubernetes.io/name: bookstack
   annotations:
-{{ toYaml .Values.ingress.annotations | indent 4 }}
+    {{- range $key, $value := .Values.ingress.annotations }}
+    {{ $key }}: {{ $value }}
+    {{- end }}
 spec:
   rules:
     - host: {{ .Values.global.app_url }}

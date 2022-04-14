@@ -20,6 +20,14 @@ data:
   DB_USER: {{ .Values.mariadb.user | quote }}
   DB_PASS: {{ .Values.mariadb.pass | quote }}
   DB_DATABASE: {{ .Values.mariadb.name | quote }}
+  MAIL_DRIVER: {{ .Values.mail.driver | quote }}
+  MAIL_HOST: {{ .Values.mail.host | quote }}
+  MAIL_PORT: {{ .Values.mail.port | quote }}
+  MAIL_ENCRYPTION: {{ .Values.mail.encryption | quote }}
+  MAIL_USERNAME: {{ .Values.mail.username | quote }}
+  MAIL_PASSWORD: {{ .Values.mail.password | quote }}
+  MAIL_FROM: {{ .Values.mail.from | quote }}
+  MAIL_FROM_NAME: {{ .Values.mail.from_name | quote }}
 
 ---
 apiVersion: v1

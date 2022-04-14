@@ -23,6 +23,16 @@ mariadb:
   storage:
     size: "5Gi"
 
+mail:
+  driver: "smtp"
+  host: "smtp.provider.tld"
+  port: "465"
+  encryption: "tls"
+  username: "user@provider.tld"
+  password: "onlyifneeded"
+  from: "noreply@yourdomain.tld"
+  from_name: "BookStack"
+
 ingress:
   tls: false
   annotations:

@@ -115,7 +115,9 @@ metadata:
     app.kubernetes.io/name: bookstack
   annotations:
     {{- range $key, $val := .Values.ingress.annotations }}
+    {{- if $val }}
     {{ $key }}: {{ $val }}
+    {{- end }}
     {{- end }}
 spec:
   rules:

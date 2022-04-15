@@ -24,6 +24,7 @@ mariadb:
     size: "5Gi"
 
 mail:
+  enabled: false
   driver: "smtp"
   host: "smtp.provider.tld"
   port: "465"
@@ -35,6 +36,7 @@ mail:
 
 auth:
   azure:
+    enabled: false
     app_id: ""
     app_secret: ""
     tenant: ""

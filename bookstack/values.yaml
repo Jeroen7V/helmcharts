@@ -33,6 +33,12 @@ mail:
   from: "noreply@yourdomain.tld"
   from_name: "BookStack"
 
+auth:
+  azure:
+    app_id: ""
+    app_secret: ""
+    tenant: ""
+
 ingress:
   tls: false
   annotations:

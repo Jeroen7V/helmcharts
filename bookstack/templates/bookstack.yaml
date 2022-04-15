@@ -12,10 +12,10 @@ data:
   PUID: {{ .Values.bookstack.puid | quote }}
   PGID: {{ .Values.bookstack.pgid | quote }}
   APP_URL: "https://{{ .Values.global.app_url }}"
-  {{- if not .Values.mariadb.host }}
-  DB_HOST: "{{ .Release.Name }}-mariadb"
-  {{- else }}
+  {{- if .Values.mariadb.host }}
   DB_HOST: {{ .Values.mariadb.host | quote }}
+  {{- else }}
+  DB_HOST: "{{ .Release.Name }}-mariadb"
   {{- end }}
   DB_USER: {{ .Values.mariadb.user | quote }}
   DB_PASS: {{ .Values.mariadb.pass | quote }}

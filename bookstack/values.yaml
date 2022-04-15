@@ -38,6 +38,8 @@ auth:
     app_id: ""
     app_secret: ""
     tenant: ""
+    auto_register: false
+    auto_confirm: false
 
 ingress:
   tls: false

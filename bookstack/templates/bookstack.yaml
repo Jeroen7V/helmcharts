@@ -31,6 +31,8 @@ data:
   AZURE_APP_ID: {{ .Values.auth.azure.app_id | quote }}
   AZURE_APP_SECRET: {{ .Values.auth.azure.app_secret | quote }}
   AZURE_TENANT: {{ .Values.auth.azure.tenant | quote }}
+  AZURE_AUTO_REGISTER: {{ .Values.auth.azure.auto_register | quote }}
+  AZURE_AUTO_CONFIRM_EMAIL: {{ .Values.auth.azure.auto_confirm | quote }}
 
 ---
 apiVersion: v1

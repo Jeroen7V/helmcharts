@@ -23,14 +23,14 @@ postgres:
     size: "5Gi"
 
 mail:
-  enabled: false
+  enabled: true
   host: "smtp.provider.tld"
   port: "465"
   encryption: "tls"
   username: "user@provider.tld"
   password: "onlyifneeded"
   from: "noreply@yourdomain.tld"
-  from_name: "BookStack"
+  from_name: "Joplin"
 
 ingress:
   tls: false

@@ -20,14 +20,14 @@ data:
   POSTGRES_USER: {{ .Values.postgres.user | quote }}
   POSTGRES_PASSWORD: {{ .Values.postgres.pass | quote }}
   {{- if .Values.mail.enabled }}
-  MAILER_ENABLED: true
+  MAILER_ENABLED: "true"
   MAILER_HOST: {{ .Values.mail.host | squote }}
   MAILER_PORT: {{ .Values.mail.port | int }}
-  MAILER_SECURITY: {{ .Values.mail.encryption | squote }}
-  MAILER_AUTH_USER: {{ .Values.mail.username | squote }}
-  MAILER_AUTH_PASSWORD: {{ .Values.mail.password | squote }}
-  MAILER_NOREPLY_NAME: {{ .Values.mail.from_name | squote }}
-  MAILER_NOREPLY_EMAIL: {{ .Values.mail.from | squote }}
+  MAILER_SECURITY: {{ .Values.mail.encryption | quote }}
+  MAILER_AUTH_USER: {{ .Values.mail.username | quote }}
+  MAILER_AUTH_PASSWORD: {{ .Values.mail.password | quote }}
+  MAILER_NOREPLY_NAME: {{ .Values.mail.from_name | quote }}
+  MAILER_NOREPLY_EMAIL: {{ .Values.mail.from | quote }}
   {{- end }}
 
 ---

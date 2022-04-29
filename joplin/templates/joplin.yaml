@@ -9,7 +9,9 @@ metadata:
     app.kubernetes.io/component: application
     app.kubernetes.io/name: joplin
 data:
-  APP_BASE_URL: {{ .Values.global.app_url | quote }}
+  {{- if .Values.global.app_url }}
+  APP_BASE_URL: "http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.global.app_url }}"
+  {{- end }}
   APP_PORT: {{ .Values.joplin.port | quote }}
   DB_CLIENT: pg
   POSTGRES_HOST: {{ .Values.postgres.host | default (printf "%s-pgsql" .Release.Name) | quote }}

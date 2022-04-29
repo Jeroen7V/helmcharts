@@ -21,8 +21,8 @@ data:
   POSTGRES_PASSWORD: {{ .Values.postgres.pass | quote }}
   {{- if .Values.mail.enabled }}
   MAILER_ENABLED: "true"
-  MAILER_HOST: {{ .Values.mail.host | squote }}
-  MAILER_PORT: {{ .Values.mail.port | int }}
+  MAILER_HOST: {{ .Values.mail.host | quote }}
+  MAILER_PORT: {{ .Values.mail.port | quote }}
   MAILER_SECURITY: {{ .Values.mail.encryption | quote }}
   MAILER_AUTH_USER: {{ .Values.mail.username | quote }}
   MAILER_AUTH_PASSWORD: {{ .Values.mail.password | quote }}

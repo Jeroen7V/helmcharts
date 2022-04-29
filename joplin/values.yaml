@@ -8,6 +8,7 @@ joplin:
     tag: "2.7.4-beta"
   storage:
     size: "5Gi"
+  port: "22300"
 
 postgres:
   host: "" # Leave empty to make it spin up its own database.

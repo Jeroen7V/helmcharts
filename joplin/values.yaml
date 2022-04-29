@@ -1,0 +1,28 @@
+global:
+  storageclass: ""
+  app_url: ""
+
+joplin:
+  image:
+    name: "joplin/server"
+    tag: "2.7.4-beta"
+  storage:
+    size: "5Gi"
+
+postgres:
+  host: "" # Leave empty to make it spin up its own database.
+  name: "joplin"
+  user: "joplin"
+  pass: "changeit!"
+  port: "5432"
+  image:
+    name: "postgres"
+    tag: "13.1"
+  storage:
+    size: "5Gi"
+
+ingress:
+  tls: false
+  annotations:
+    "kubernetes.io/ingress.class": "nginx"
+    "cert-manager.io/cluster-issuer": ""

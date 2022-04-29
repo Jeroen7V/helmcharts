@@ -1,0 +1,85 @@
+{{- if not .Values.postgres.host }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-postgres-env
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: database
+    app.kubernetes.io/name: postgres
+data:
+  POSTGRES_DB: {{ .Values.postgres.name | quote }}
+  POSTGRES_USER: {{ .Values.postgres.user | quote }}
+  POSTGRES_PASSWORD: {{ .Values.postgres.pass | quote }}
+
+---        
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-postgres
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: database
+    app.kubernetes.io/name: postgres
+spec:
+  serviceName: {{ .Release.Name }}-postgres
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: {{ .Release.Name }}
+      app.kubernetes.io/component: database
+      app.kubernetes.io/name: postgres
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/part-of: {{ .Release.Name }}
+        app.kubernetes.io/component: database
+        app.kubernetes.io/name: postgres
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-postgres
+        image: "{{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag }}"
+        ports:
+          - containerPort: 3306
+            name: postgres
+            protocol: TCP
+        volumeMounts:
+        - name: {{ .Release.Name }}-postgres
+          mountPath: /var/lib/mysql
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-postgres-env
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Release.Name }}-postgres
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ .Values.global.storageclass | quote }}
+      resources:
+        requests:
+          storage: {{ .Values.postgres.storage.size | quote }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-postgres
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: database
+    app.kubernetes.io/name: postgres
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+      protocol: TCP
+      targetPort: mysql
+  selector:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: database
+    app.kubernetes.io/name: postgres
+  type: ClusterIP
+{{- end }}

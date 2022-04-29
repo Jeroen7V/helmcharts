@@ -14,7 +14,7 @@ data:
   {{- end }}
   APP_PORT: {{ .Values.joplin.port | quote }}
   DB_CLIENT: pg
-  POSTGRES_HOST: {{ .Values.postgres.host | default (printf "%s-pgsql" .Release.Name) | quote }}
+  POSTGRES_HOST: {{ .Values.postgres.host | default (printf "%s-postgres" .Release.Name) | quote }}
   POSTGRES_PORT: {{ .Values.postgres.port | quote }}
   POSTGRES_DATABASE: {{ .Values.postgres.name | quote }}
   POSTGRES_USER: {{ .Values.postgres.user | quote }}

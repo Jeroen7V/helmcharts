@@ -19,6 +19,16 @@ data:
   POSTGRES_DATABASE: {{ .Values.postgres.name | quote }}
   POSTGRES_USER: {{ .Values.postgres.user | quote }}
   POSTGRES_PASSWORD: {{ .Values.postgres.pass | quote }}
+  {{- if .Values.mail.enabled }}
+  MAILER_ENABLED: true
+	MAILER_HOST: {{ .Values.mail.host | quote }}
+	MAILER_PORT: {{ .Values.mail.port | quote }}
+	MAILER_SECURITY: {{ .Values.mail.encryption | quote }}
+	MAILER_AUTH_USER: {{ .Values.mail.username | quote }}
+	MAILER_AUTH_PASSWORD: {{ .Values.mail.password | quote }}
+	MAILER_NOREPLY_NAME: {{ .Values.mail.from_name | quote }}
+	MAILER_NOREPLY_EMAIL: {{ .Values.mail.from | quote }}
+  {{- end }}
 
 ---
 apiVersion: v1

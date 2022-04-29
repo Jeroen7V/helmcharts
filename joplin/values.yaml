@@ -18,12 +18,12 @@ postgres:
   port: "5432"
   image:
     name: "postgres"
-    tag: "13.1"
+    tag: "14.2-alpine"
   storage:
     size: "5Gi"
 
 mail:
-  enabled: true
+  enabled: false
   host: "smtp.provider.tld"
   port: "465"
   encryption: "tls"

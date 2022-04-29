@@ -73,10 +73,10 @@ metadata:
     app.kubernetes.io/name: postgres
 spec:
   ports:
-    - name: mysql
+    - name: postgres
       port: 5432
       protocol: TCP
-      targetPort: mysql
+      targetPort: postgres
   selector:
     app.kubernetes.io/part-of: {{ .Release.Name }}
     app.kubernetes.io/component: database

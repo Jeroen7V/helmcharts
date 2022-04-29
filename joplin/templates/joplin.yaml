@@ -105,7 +105,7 @@ spec:
   selector:
     app.kubernetes.io/part-of: {{ .Release.Name }}
     app.kubernetes.io/component: application
-    app.kubernetes.io/name: bookstack
+    app.kubernetes.io/name: joplin
   ports:
     - name: web
       port: 80

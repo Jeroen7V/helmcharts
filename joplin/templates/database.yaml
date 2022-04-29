@@ -42,7 +42,7 @@ spec:
       - name: {{ .Release.Name }}-postgres
         image: "{{ .Values.postgres.image.name }}:{{ .Values.postgres.image.tag }}"
         ports:
-          - containerPort: 3306
+          - containerPort: 5432
             name: postgres
             protocol: TCP
         volumeMounts:
@@ -74,7 +74,7 @@ metadata:
 spec:
   ports:
     - name: mysql
-      port: 3306
+      port: 5432
       protocol: TCP
       targetPort: mysql
   selector:

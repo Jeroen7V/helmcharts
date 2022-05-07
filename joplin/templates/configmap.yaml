@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-joplin-env
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: application
+    app.kubernetes.io/name: joplin
+data:
+  APP_BASE_URL: "http{{ if .Values.ingress.tls }}s{{ end }}://{{ .Values.global.app_url }}"
+  APP_PORT: {{ .Values.joplin.port | quote }}
+  DB_CLIENT: pg
+  {{- if .Values.postgresql.enabled }}
+  POSTGRES_HOST: {{ .Values.postgresql.host | quote }}
+  {{- else }}
+  POSTGRES_HOST: {{ include "postgresql.primary.fullname" .Subcharts.postgresql }}
+  {{- end }}
+  POSTGRES_PORT: {{ .Values.global.postgresql.service.ports.postgresql | quote }}
+  POSTGRES_DATABASE: {{ .Values.global.postgresql.auth.database | quote }}
+  POSTGRES_USER: {{ .Values.global.postgresql.auth.username | quote }}
+  POSTGRES_PASSWORD: {{ .Values.global.postgresql.auth.password | quote }}
+  {{- if .Values.mail.enabled }}
+  MAILER_ENABLED: "true"
+  MAILER_HOST: {{ .Values.mail.host | quote }}
+  MAILER_PORT: {{ .Values.mail.port | quote }}
+  MAILER_SECURITY: {{ .Values.mail.encryption | quote }}
+  MAILER_AUTH_USER: {{ .Values.mail.username | quote }}
+  MAILER_AUTH_PASSWORD: {{ .Values.mail.password | quote }}
+  MAILER_NOREPLY_NAME: {{ .Values.mail.from_name | quote }}
+  MAILER_NOREPLY_EMAIL: {{ .Values.mail.from | quote }}
+  {{- end }}

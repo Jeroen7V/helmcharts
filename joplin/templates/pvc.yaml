@@ -14,4 +14,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.joplin.storage.size }}
-  storageClassName: {{ .Values.global.storageclass | quote }}
+  storageClassName: {{ .Values.global.storageClass | quote }}

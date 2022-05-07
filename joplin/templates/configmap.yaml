@@ -15,7 +15,7 @@ data:
   {{- if .Values.postgresql.enabled }}
   POSTGRES_HOST: {{ .Values.postgresql.host | quote }}
   {{- else }}
-  POSTGRES_HOST: {{ include "postgresql.primary.fullname" .Subcharts.postgresql }}
+  POSTGRES_HOST: {{ template "postgresql.primary.fullname" .Subcharts.postgresql }}
   {{- end }}
   POSTGRES_PORT: {{ .Values.global.postgresql.service.ports.postgresql | quote }}
   POSTGRES_DATABASE: {{ .Values.global.postgresql.auth.database | quote }}

@@ -13,9 +13,9 @@ data:
   APP_PORT: {{ .Values.joplin.port | quote }}
   DB_CLIENT: pg
   {{- if .Values.postgresql.enabled }}
-  POSTGRES_HOST: {{ .Values.postgresql.host | quote }}
-  {{- else }}
   POSTGRES_HOST: {{ template "postgresql.primary.fullname" .Subcharts.postgresql }}
+  {{- else }}
+  POSTGRES_HOST: {{ .Values.postgresql.host | quote }}
   {{- end }}
   POSTGRES_PORT: {{ .Values.global.postgresql.service.ports.postgresql | quote }}
   POSTGRES_DATABASE: {{ .Values.global.postgresql.auth.database | quote }}

@@ -24,17 +24,6 @@ postgresql:
     initdb:
       scriptsConfigMap: "{{ .Release.Name }}-umami-sql"
 
-mail:
-  enabled: false
-  host: "smtp.provider.tld"
-  port: "465"
-  ssl: true
-  tls: false
-  username: "user@provider.tld"
-  password: "onlyifneeded"
-  from: "noreply@yourdomain.tld"
-  from_name: "Shynet"
-
 ingress:
   enabled: false
   tls: false

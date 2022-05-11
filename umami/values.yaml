@@ -1,0 +1,43 @@
+global:
+  storageClass: ""
+  app_url: "umamo.local"
+  postgresql:
+    auth:
+      username: umami
+      password: changeIt!
+      database: umami
+      postgresPassword: changeIt!
+    service:
+      ports:
+        postgresql: 5432
+
+umami:
+  image:
+    name: "ghcr.io/mikecao/umami"
+    tag: "postgresql-v1.31.0"
+  hash_salt: RandomizeMe!
+
+postgresql:
+  enabled: true # Change to false if you have another DB running.
+  host: "" # Define the DB host when postgresql.enabled is false.
+  primary:
+    initdb:
+      scriptsConfigMap: "{{ .Release.Name }}-umami-sql"
+
+mail:
+  enabled: false
+  host: "smtp.provider.tld"
+  port: "465"
+  ssl: true
+  tls: false
+  username: "user@provider.tld"
+  password: "onlyifneeded"
+  from: "noreply@yourdomain.tld"
+  from_name: "Shynet"
+
+ingress:
+  enabled: false
+  tls: false
+  annotations:
+    "kubernetes.io/ingress.class": "nginx"
+    "cert-manager.io/cluster-issuer": ""

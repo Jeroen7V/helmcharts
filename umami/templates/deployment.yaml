@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-umami
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: application
+    app.kubernetes.io/name: umami
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: {{ .Release.Name }}
+      app.kubernetes.io/component: application
+      app.kubernetes.io/name: umami
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/part-of: {{ .Release.Name }}
+        app.kubernetes.io/component: application
+        app.kubernetes.io/name: umami
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-umami
+          image: "{{ .Values.umami.image.name }}:{{ .Values.umami.image.tag }}"
+          ports:
+            - containerPort: 3000
+              name: web
+              protocol: TCP
+          envFrom:
+          - configMapRef:
+              name: {{ .Release.Name }}-umami-env

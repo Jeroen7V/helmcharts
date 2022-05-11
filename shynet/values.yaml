@@ -1,0 +1,49 @@
+global:
+  storageClass: ""
+  app_url: "joplin.local"
+  postgresql:
+    auth:
+      username: shynet
+      password: changeIt!
+      database: shynet
+      postgresPassword: changeIt!
+    service:
+      ports:
+        postgresql: 5432
+
+shynet:
+  image:
+    name: "milesmcc/shynet"
+    tag: "v0.12.0"
+  storage:
+    size: "5Gi"
+  secret_key: RandomizeMe!
+  account_signup: false
+  timezone: America/New_York
+  su_create: true
+  block_ips: false
+  external_icons: true
+  dashboard_services: 5
+  port: 8080
+
+postgresql:
+  enabled: true # Change to false if you have another DB running.
+  host: "" # Define the DB host when postgresql.enabled is false.
+
+mail:
+  enabled: false
+  host: "smtp.provider.tld"
+  port: "465"
+  ssl: true
+  tls: false
+  username: "user@provider.tld"
+  password: "onlyifneeded"
+  from: "noreply@yourdomain.tld"
+  from_name: "Shynet"
+
+ingress:
+  enabled: false
+  tls: false
+  annotations:
+    "kubernetes.io/ingress.class": "nginx"
+    "cert-manager.io/cluster-issuer": ""

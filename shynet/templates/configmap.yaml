@@ -1,0 +1,57 @@
+---
+# TODO finalize using https://github.com/milesmcc/shynet/blob/master/TEMPLATE.env
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-shynet-env
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: application
+    app.kubernetes.io/name: shynet
+data:
+  # General settings
+  DJANGO_SECRET_KEY: {{ .Values.shynet.secret_key | quote }}
+  ACCOUNT_SIGNUPS_ENABLED: {{ .Values.shynet.account_signup | quote }}
+  TIME_ZONE: {{ .Values.shynet.timezone | quote }}
+  ONLY_SUPERUSERS_CREATE: {{ .Values.shynet.su_create | quote }}
+  PORT: {{ .Values.shynet.port | quote }}
+  SHOW_THIRD_PARTY_ICONS: {{ .Values.shynet.external_icons | quote }}
+  BLOCK_ALL_IPS: {{ .Values.shynet.block_ips | quote }}
+  DASHBOARD_PAGE_SIZE: {{ .Values.shynet.dashboard_services | quote }}
+  SCRIPT_USE_HTTPS: {{ .Values.ingress.tls | quote }}
+  {{- if and .Values.mail.enabled .Values.shynet.account_signup }}
+  ACCOUNT_EMAIL_VERIFICATION: "required"
+  {{- else }}
+  ACCOUNT_EMAIL_VERIFICATION: "none"
+  {{- end }}
+  # Keep default for now
+  ALLOWED_HOSTS: "*"
+  SCRIPT_HEARTBEAT_FREQUENCY: 5000
+  SESSION_MEMORY_TIMEOUT: 1800
+  PERFORM_CHECKS_AND_SETUP: True
+  SHOW_SHYNET_VERSION: False
+  AGGRESSIVE_HASH_SALTING: True
+  LOCATION_URL: https://www.openstreetmap.org/?mlat=$LATITUDE&mlon=$LONGITUDE
+  USE_RELATIVE_MAX_IN_BAR_VISUALIZATION: True
+  # Postgresql connection settings
+  {{- if .Values.postgresql.enabled }}
+  DB_HOST: {{ template "postgresql.primary.fullname" .Subcharts.postgresql }}
+  {{- else }}
+  DB_HOST: {{ .Values.postgresql.host | quote }}
+  {{- end }}
+  DB_PORT: {{ .Values.global.postgresql.service.ports.postgresql | quote }}
+  DB_NAME: {{ .Values.global.postgresql.auth.database | quote }}
+  DB_USER: {{ .Values.global.postgresql.auth.username | quote }}
+  DB_PASSWORD: {{ .Values.global.postgresql.auth.password | quote }}
+  # Mail settings (smtp)
+  {{- if .Values.mail.enabled }}
+  MAILER_ENABLED: "true"
+  EMAIL_HOST: {{ .Values.mail.host | quote }}
+  EMAIL_PORT: {{ .Values.mail.port | quote }}
+  EMAIL_USE_SSL: {{ .Values.mail.ssl | quote }}
+  EMAIL_USE_TLS: {{ .Values.mail.tsl | quote }}
+  EMAIL_HOST_USER: {{ .Values.mail.username | quote }}
+  EMAIL_HOST_PASSWORD: {{ .Values.mail.password | quote }}
+  SERVER_EMAIL: {{ (printf "%s <%s>" .Values.mail.from_name .Values.mail.from) | quote }}
+  {{- end }}

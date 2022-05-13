@@ -29,11 +29,11 @@ data:
   ALLOWED_HOSTS: "*"
   SCRIPT_HEARTBEAT_FREQUENCY: 5000
   SESSION_MEMORY_TIMEOUT: 1800
-  PERFORM_CHECKS_AND_SETUP: True
-  SHOW_SHYNET_VERSION: False
-  AGGRESSIVE_HASH_SALTING: True
-  LOCATION_URL: https://www.openstreetmap.org/?mlat=$LATITUDE&mlon=$LONGITUDE
-  USE_RELATIVE_MAX_IN_BAR_VISUALIZATION: True
+  PERFORM_CHECKS_AND_SETUP: "True"
+  SHOW_SHYNET_VERSION: "False"
+  AGGRESSIVE_HASH_SALTING: "True"
+  LOCATION_URL: "https://www.openstreetmap.org/?mlat=$LATITUDE&mlon=$LONGITUDE"
+  USE_RELATIVE_MAX_IN_BAR_VISUALIZATION: "True"
   # Postgresql connection settings
   {{- if .Values.postgresql.enabled }}
   DB_HOST: {{ template "postgresql.primary.fullname" .Subcharts.postgresql }}

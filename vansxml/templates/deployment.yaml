@@ -39,8 +39,8 @@ spec:
               port: 8228
               scheme: HTTP
           volumeMounts:
-            name: db
-            mountPath: "/src/db"
+            - name: db
+              mountPath: "/src/db"
       volumes:
         - name: db
           persistentVolumeClaim:

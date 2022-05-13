@@ -10,8 +10,10 @@ metadata:
     app.kubernetes.io/component: application
     app.kubernetes.io/name: vansxml
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-    {{ $key }}: {{ $value | quote }}
+    {{- range $key, $val := .Values.ingress.annotations }}
+    {{- if $val }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
     {{- end }}
 spec:
   rules:

@@ -25,7 +25,7 @@ spec:
         - name: {{ .Release.Name }}-shynet
           image: "{{ .Values.shynet.image.name }}:{{ .Values.shynet.image.tag }}"
           ports:
-            - containerPort: {{ .Values.shynet.port | quote}}
+            - containerPort: {{ .Values.shynet.port | int }}
               name: web
               protocol: TCP
           envFrom:

@@ -50,7 +50,7 @@ data:
   EMAIL_HOST: {{ .Values.mail.host | quote }}
   EMAIL_PORT: {{ .Values.mail.port | quote }}
   EMAIL_USE_SSL: {{ .Values.mail.ssl | quote }}
-  EMAIL_USE_TLS: {{ .Values.mail.tsl | quote }}
+  EMAIL_USE_TLS: {{ .Values.mail.tls | quote }}
   EMAIL_HOST_USER: {{ .Values.mail.username | quote }}
   EMAIL_HOST_PASSWORD: {{ .Values.mail.password | quote }}
   SERVER_EMAIL: {{ (printf "%s <%s>" .Values.mail.from_name .Values.mail.from) | quote }}

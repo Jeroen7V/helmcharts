@@ -1,6 +1,6 @@
 global:
   storageClass: ""
-  app_url: "umamo.local"
+  app_url: "umami.local"
   postgresql:
     auth:
       username: umami

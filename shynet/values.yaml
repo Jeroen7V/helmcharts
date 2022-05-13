@@ -1,6 +1,6 @@
 global:
   storageClass: ""
-  app_url: "joplin.local"
+  app_url: "shynet.local"
   postgresql:
     auth:
       username: shynet

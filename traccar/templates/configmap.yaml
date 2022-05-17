@@ -15,9 +15,9 @@ data:
     <properties>
       <entry key='config.default'>/opt/traccar/conf/default.xml</entry>
       <entry key='database.driver'>org.postgresql.Driver</entry>
-      <entry key='database.url'>jdbc:postgresql://{{ template "postgresql.primary.fullname" .Subcharts.postgresql }}/{{ .Values.global.postgresql.auth.database | quote }}</entry>
-      <entry key='database.user'>{{ .Values.global.postgresql.auth.username | quote }}</entry>
-      <entry key='database.password'>{{ .Values.global.postgresql.auth.password | quote }}</entry>
+      <entry key='database.url'>jdbc:postgresql://{{ template "postgresql.primary.fullname" .Subcharts.postgresql }}/{{ .Values.global.postgresql.auth.database }}</entry>
+      <entry key='database.user'>{{ .Values.global.postgresql.auth.username }}</entry>
+      <entry key='database.password'>{{ .Values.global.postgresql.auth.password }}</entry>
       <entry key='geocoder.enable'>true</entry>
       <entry key='geocoder.type'>nominatim</entry>
       <entry key='geocoder.url'>https://eu1.locationiq.com/v1/reverse.php</entry>

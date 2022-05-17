@@ -1,0 +1,25 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: application
+    app.kubernetes.io/name: traccar
+data:
+  traccar.xml: |
+    <?xml version='1.0' encoding='UTF-8'?>
+    <!DOCTYPE properties SYSTEM 'http://java.sun.com/dtd/properties.dtd'>
+    <properties>
+      <entry key='config.default'>/opt/traccar/conf/default.xml</entry>
+      <entry key='database.driver'>org.postgresql.Driver</entry>
+      <entry key='database.url'>jdbc:postgresql://{{ template "postgresql.primary.fullname" .Subcharts.postgresql }}/{{ .Values.global.postgresql.auth.database | quote }}</entry>
+      <entry key='database.user'>{{ .Values.global.postgresql.auth.username | quote }}</entry>
+      <entry key='database.password'>{{ .Values.global.postgresql.auth.password | quote }}</entry>
+      <entry key='geocoder.enable'>true</entry>
+      <entry key='geocoder.type'>nominatim</entry>
+      <entry key='geocoder.url'>https://eu1.locationiq.com/v1/reverse.php</entry>
+      <entry key='geocoder.key'>pk.dfeb2c359c400db160ef02d2602469f1</entry>
+    </properties>

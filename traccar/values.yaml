@@ -1,0 +1,36 @@
+global:
+  storageclass: ""
+  app_url: ""
+  postgresql:
+    auth:
+      username: traccar
+      password: changeIt!
+      database: traccar
+      postgresPassword: changeIt!
+    service:
+      ports:
+        postgresql: 5432
+
+image:
+  name: "traccar/traccar"
+  tag: "4.15-alpine"
+
+storage:
+  data:
+    size: "5Gi"
+  logs:
+    size: "5Gi"
+
+postgresql:
+  enabled: true # Change to false if you have another DB running.
+  host: "" # Define the DB host when postgresql.enabled is false.
+
+dataports:
+  - port: 5001
+    externalPort: 31001
+
+ingress:
+  tls: false
+  annotations:
+    "kubernetes.io/ingress.class": ""
+    "cert-manager.io/cluster-issuer": ""

@@ -30,6 +30,7 @@ dataports:
     externalPort: 31001
 
 ingress:
+  enabled: true
   tls: false
   annotations:
     "kubernetes.io/ingress.class": ""

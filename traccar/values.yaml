@@ -1,5 +1,5 @@
 global:
-  storageclass: ""
+  storageClass: ""
   app_url: ""
   postgresql:
     auth:

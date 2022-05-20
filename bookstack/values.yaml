@@ -2,26 +2,24 @@ global:
   storageclass: ""
   app_url: ""
 
-bookstack:
-  image:
-    name: "linuxserver/bookstack"
-    tag: "22.03.1"
-  storage:
-    size: "5Gi"
-  puid: "1000"
-  pgid: "1000"
+image:
+  name: "linuxserver/bookstack"
+  tag: "22.03.1"
+
+storage:
+  size: "5Gi"
+
+puid: "1000"
+pgid: "1000"
 
 mariadb:
-  host: "" # Leave empty to make it spin up its own database.
-  name: "bookstack"
-  user: "bookstack"
-  pass: "changeit!"
-  image:
-    name: "mariadb"
-    tag: 10
-  rootpass: "changeme!"
-  storage:
-    size: "5Gi"
+  enabled: "yes" # Change to yes if you have another DB running.
+  host: "" # Define the DB host, leave empty when using template DB.
+  auth:
+    database: "bookstack"
+    rootPassword: "changeit!"
+    username: "bookstack"
+    password: "changeit!"
 
 mail:
   enabled: false

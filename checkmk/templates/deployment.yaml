@@ -28,6 +28,9 @@ spec:
             - containerPort: 5000
               name: web
               protocol: TCP
+          envFrom:
+            - secretRef:
+                name: {{ .Release.Name }}-checkmk
           volumeMounts:
             - name: {{ .Release.Name }}-checkmk
               mountPath: /omd/sites

@@ -1,0 +1,36 @@
+{{- if .Values.ingress.enabled -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-checkmk
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/part-of: {{ .Release.Name }}
+    app.kubernetes.io/component: application
+    app.kubernetes.io/name: checkmk
+  annotations:
+    {{- range $key, $val := .Values.ingress.annotations }}
+    {{- if $val }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
+    {{- end }}
+spec:
+  rules:
+    - host: {{ .Values.global.app_url }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ .Release.Name }}-checkmk
+                port:
+                  name: web
+            path: /
+            pathType: Prefix
+  {{- if .Values.ingress.tls }}
+  tls:
+    - hosts:
+        - {{ .Values.global.app_url }}
+      secretName: {{ .Release.Name }}-checkmk-ssl
+  {{- end }}
+{{- end -}}

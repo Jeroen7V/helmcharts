@@ -1,0 +1,21 @@
+global:
+  storageClass: ""
+  app_url: "discogssorter.local"
+
+image:
+  name: "checkmk/check-mk-raw"
+  tag: "2.1.0p5"
+
+storage:
+  size: "5Gi"
+
+config:
+  site_id: "checkmk"
+  password: "ChangeMe!"
+
+ingress:
+  enabled: false
+  tls: false
+  annotations:
+    "kubernetes.io/ingress.class": "nginx" 
+    "cert-manager.io/cluster-issuer": ""

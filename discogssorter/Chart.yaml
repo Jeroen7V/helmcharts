@@ -1,5 +1,5 @@
 apiVersion: v2
-name: DiscogsSorter
+name: discogssorter
 description: A Helm chart to deploy DiscogsSorter on your Kubernetes cluster.
 
 # A chart can be either an 'application' or a 'library' chart.
